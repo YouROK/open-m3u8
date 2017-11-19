@@ -48,8 +48,11 @@ class ExtendedM3uParser extends BaseM3uParser {
 
         try {
             while (mScanner.hasNext()) {
-                final String line = mScanner.next();
-                checkWhitespace(line);
+                String line = mScanner.next();
+                if (mParsingMode == ParsingMode.STRICT)
+                    checkWhitespace(line);
+                else
+                    line = line.trim();
 
                 if (line.length() == 0 || isComment(line)) {
                     continue;
